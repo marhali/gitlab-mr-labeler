@@ -35,7 +35,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version-file: package.json
           cache: pnpm
 
       - name: Install dependencies
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version-file: package.json
           cache: pnpm
 
       - name: Run lint
@@ -81,7 +81,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version-file: package.json
           cache: pnpm
 
       - name: Run tests
@@ -104,7 +104,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version-file: package.json
           cache: pnpm
 
       - name: Run build
@@ -139,7 +139,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.14.0
+          node-version-file: package.json
           cache: pnpm
 
       - name: Run Qodana
