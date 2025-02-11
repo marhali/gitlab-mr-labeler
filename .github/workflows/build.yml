@@ -2,6 +2,7 @@
 # Workflow runs: every pull_request & push on main or next branch.
 # Job execution order:
 # - install
+#   - lint
 #   - test
 #   - build
 #   - inspect
@@ -40,6 +41,30 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+  # Run static code analysis with eslint + prettier
+  lint:
+    name: Lint
+    needs: [ install ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.1
+          cache: pnpm
+
+      - name: Run lint
+        run: pnpm lint
 
   # Run tests and upload a code coverage report
   test:
