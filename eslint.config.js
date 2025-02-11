@@ -16,7 +16,7 @@ export default typescriptEslint.config(
       globals: globals.node,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['eslint.config.js'],
+          allowDefaultProject: ['eslint.config.js', 'prettier.config.js'],
         },
 
         tsconfigRootDir: import.meta.dirname,
