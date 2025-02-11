@@ -19,9 +19,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Prepare environment
-  install:
-    name: Install
+  # Run static code analysis with eslint + prettier
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -41,33 +41,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-  # Run static code analysis with eslint + prettier
-  lint:
-    name: Lint
-    needs: [ install ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: package.json
-          cache: pnpm
-
       - name: Run lint
         run: pnpm lint
 
   # Run tests and upload a code coverage report
   test:
     name: Test
-    needs: [ install ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -83,6 +62,9 @@ jobs:
         with:
           node-version-file: package.json
           cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests
         run: pnpm test
@@ -90,7 +72,6 @@ jobs:
   # Build and upload artifact assets
   build:
     name: Build
-    needs: [ install ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -106,6 +87,9 @@ jobs:
         with:
           node-version-file: package.json
           cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Run build
         run: pnpm build
@@ -119,7 +103,6 @@ jobs:
   # Inspect code and upload report using Qodana
   inspect:
     name: Inspect
-    needs: [ install ]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -141,6 +124,9 @@ jobs:
         with:
           node-version-file: package.json
           cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Run Qodana
         uses: JetBrains/qodana-action@v2024.3
