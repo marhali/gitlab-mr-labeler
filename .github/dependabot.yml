@@ -1,0 +1,21 @@
+version: 2
+
+updates:
+  # Node.js (node_modules) via pnpm as package manager
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  # GitHub Actions dependencies
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+
+  # Dockerfile dependencies
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
