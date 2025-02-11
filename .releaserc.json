@@ -1,0 +1,29 @@
+{
+  "branches": ["main", "next"],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits"
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits"
+      }
+    ],
+    [
+      "@semantic-release/changelog"
+    ],
+    [
+      "@semantic-release/github"
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "publishCmd": "./scripts/publish-release.sh ${nextRelease.version} ${branch.name}"
+      }
+    ]
+  ]
+}
