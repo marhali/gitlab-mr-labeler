@@ -13,7 +13,7 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['node:child_process', 'node:util'],
+      external: ['node:child_process', 'node:path', 'node:util'],
     },
   },
   test: {
