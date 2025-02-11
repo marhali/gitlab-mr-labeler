@@ -32,6 +32,3 @@ Assigns labels based on the commit messages of the made changes. Compares the [g
 ## Installation
 
 ## Configuration
-
-TODO:
-https://vite.dev/guide/build.html#library-mode
