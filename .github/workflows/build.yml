@@ -120,8 +120,32 @@ jobs:
           name: build
           path: dist/
 
-  # Inspect code and upload report
+  # Inspect code and upload report using Qodana
   inspect:
     name: Inspect
     needs: [ install ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.1
+          cache: pnpm
+
+      - name: Run Qodana
+        uses: JetBrains/qodana-action@v2024.3
