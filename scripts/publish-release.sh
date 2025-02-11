@@ -20,7 +20,7 @@ echo "Build and push docker image..."
 
 if [$BRANCH -eq "main"]
 then
-  docker buildx build -t "$REPOSITORY:$VERSION" -t "$REPOSITORY:latest" --push ./..
+  docker buildx build -t "$REPOSITORY:$VERSION" -t "$REPOSITORY:latest" --push .
 else
-  docker buildx build -t "$REPOSITORY:$BRANCH-$VERSION" -t "$REPOSITORY:$BRANCH" --push ./..
+  docker buildx build -t "$REPOSITORY:$BRANCH-$VERSION" -t "$REPOSITORY:$BRANCH" --push .
 fi
