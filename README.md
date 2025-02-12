@@ -27,13 +27,47 @@ The following configuration variants are currently supported.
 
 ### Git Diff Paths
 
-Assigns labels based on the paths of the changed files. Compares the [git diff](https://git-scm.com/docs/git-diff) between the source and target branch of the
+Assigns labels based on the paths of the changed files.
+Compares the [git diff](https://git-scm.com/docs/git-diff) between the source and target branch of the
 specific merge request.
 
 ### Git Log Messages
 
-Assigns labels based on the commit messages of the made changes. Compares the [git log](https://git-scm.com/docs/git-log) between the source and target branch of the specific merge request.
+Assigns labels based on the commit messages of the made changes.
+Compares the [git log](https://git-scm.com/docs/git-log) between the source and target branch of the specific merge request.
 
 ## Installation
 
+Just set up a new job in your `.gitlab-ci.yml` and use the predefined docker image.
+You need to provide a project access token and a relative path to your json configuration file.
+After that you can just call the `gitlab-mr-labeler` CLI and pass the access token and relative path as command-line arguments.
+
+```yaml
+# .gitlab-ci.yml
+
+gitlab_mr_labeler:
+  image: docker.io/marhali/gitlab-mr-labeler:latest
+  script: gitlab-mr-labeler $MY_PROJECT_ACCESS_TOKEN .github/gitlab-mr-labeler.config.json
+```
+
 ## Configuration
+
+In order to configure which labels should you need to provide a json configuration file.
+
+- **assignMethod**: Can be either `APPEND` or `OVERRIDE`
+- **gitLogMessages**: Object of label keys and a array value of regex strings
+- **gitDiffPaths**: Object of label keys and a array value of regex strings
+
+```json5
+// gitlab-mr-labeler.config.json
+
+{
+  "assignMethod": "APPEND",
+  "gitLogMessages": {
+    "feature": ["^feat"]
+  },
+  "gitDiffPaths": {
+    "dependencies": ["package.json$"]
+  }
+}
+```
