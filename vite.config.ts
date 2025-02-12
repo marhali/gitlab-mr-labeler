@@ -8,9 +8,9 @@ export default defineConfig({
     target: 'esnext',
     minify: false,
     lib: {
-      entry: 'src/bootstrap.ts',
+      entry: 'src/index.ts',
       formats: ['es'],
-      fileName: 'index',
+      fileName: 'gitlab-mr-labeler',
     },
     rollupOptions: {
       external: ['node:child_process', 'node:path', 'node:util'],
