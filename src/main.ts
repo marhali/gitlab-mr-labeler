@@ -1,3 +1,4 @@
+import readProcessParameter from '@/infrastructure/read-process-parameter.ts';
 import validateEnvironment from '@/domain/validate-environment.ts';
 import loadEnvironment from '@/infrastructure/load-environment.ts';
 import validateConfig from '@/domain/validate-config.ts';
@@ -10,11 +11,12 @@ import assignMergeRequestLabels from '@/infrastructure/assign-merge-request-labe
 const spacer = '______________________________________________________________________';
 
 async function main() {
+  const parameter = readProcessParameter();
   const environment = validateEnvironment(loadEnvironment());
-  const config = validateConfig(await loadConfig(environment));
+  const config = validateConfig(await loadConfig({ parameter, environment }));
 
   console.info(spacer);
-  console.info(`Using "${environment.GL_MR_LABELER_CONFIG_PATH}" as configuration file`);
+  console.info(`Using "${parameter.CONFIG_PATH}" as configuration file`);
   console.info(`Using "${config.assignMethod}" method to assign labels`);
   console.info('Source commit SHA', environment.CI_COMMIT_SHA);
   console.info('Target commit SHA', environment.CI_MERGE_REQUEST_DIFF_BASE_SHA);
@@ -56,7 +58,7 @@ async function main() {
   if (labelsToAssign.size > 0 || config.assignMethod === 'OVERRIDE') {
     const labelsToAssignArray = [...labelsToAssign];
     console.info('Sending API request to assign labels', labelsToAssignArray);
-    await assignMergeRequestLabels(labelsToAssignArray, environment, config);
+    await assignMergeRequestLabels({ parameter, environment, config, labels: labelsToAssignArray });
   } else {
     console.warn('Skip API request as no labels have been matched');
   }
