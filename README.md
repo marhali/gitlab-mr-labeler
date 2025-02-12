@@ -1,6 +1,11 @@
 # gitlab-mr-labeler
 
-[![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Github Release](https://img.shields.io/github/v/release/marhali/gitlab-mr-labeler?style=for-the-badge)](https://github.com/marhali/gitlab-mr-labeler/releases)
+[![Github Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/marhali/gitlab-mr-labeler/build.yml?style=for-the-badge)](https://github.com/marhali/gitlab-mr-labeler/actions)
+[![Docker Stars](https://img.shields.io/docker/stars/marhali/gitlab-mr-labeler?style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler)
+[![Docker Pulls](https://img.shields.io/docker/pulls/marhali/gitlab-mr-labeler?style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler)
+[![Docker Image Version](https://img.shields.io/docker/v/marhali/gitlab-mr-labeler?sort=semver&style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler/tags)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/marhalide)
 
 Solves the problem of missing automation of labeling
 [merge requests](https://docs.gitlab.com/ee/user/project/merge_requests/) in [GitLab](https://about.gitlab.com/). Based
