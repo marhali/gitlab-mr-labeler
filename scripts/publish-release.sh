@@ -18,7 +18,7 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 
 echo "Build and push docker image..."
 
-if [$BRANCH -eq "main"]
+if test $BRANCH = "main"
 then
   docker buildx build -t "$REPOSITORY:$VERSION" -t "$REPOSITORY:latest" --push .
 else
