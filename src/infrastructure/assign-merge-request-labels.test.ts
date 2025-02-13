@@ -17,7 +17,7 @@ describe('assignMergeRequestLabels()', () => {
     },
   };
   it('should assign appending labels to merge request using a "PUT" api request', async () => {
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
     vi.stubGlobal('fetch', fetchMock);
 
     await assignMergeRequestLabels({ ...options, config: { assignMethod: 'APPEND' } });
@@ -35,7 +35,7 @@ describe('assignMergeRequestLabels()', () => {
     );
   });
   it('should override labels of merge request using "PUT" api request', async () => {
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
     vi.stubGlobal('fetch', fetchMock);
 
     await assignMergeRequestLabels({ ...options, config: { assignMethod: 'OVERRIDE' } });
@@ -52,12 +52,22 @@ describe('assignMergeRequestLabels()', () => {
       },
     );
   });
-  it('should throw exception if fetch request fails', async () => {
+  it('should throw exception if fetch request rejects', async () => {
     const fetchError = new Error('myFailure');
     vi.stubGlobal('fetch', () => Promise.reject(fetchError));
 
     await expect(assignMergeRequestLabels(options)).rejects.toThrow(
       new Error('Could not assign merge request labels.', { cause: fetchError }),
+    );
+  });
+  it('should throw exception if fetch request response status is not OK', async () => {
+    const fetchResponse = { ok: false, status: 400, json: vi.fn().mockResolvedValue({ error: 'Bad Request' }) };
+    vi.stubGlobal('fetch', () => fetchResponse);
+
+    await expect(assignMergeRequestLabels(options)).rejects.toThrow(
+      new Error('Could not assign merge request labels.', {
+        cause: new Error('GitLab API responded with bad status code 400.', { cause: { error: 'Bad Request' } }),
+      }),
     );
   });
 });

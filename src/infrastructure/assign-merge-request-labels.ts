@@ -21,7 +21,7 @@ async function assignMergeRequestLabels({ labels, parameter, environment, config
   const url = `${environment.CI_API_V4_URL}/projects/${environment.CI_PROJECT_ID}/${environment.CI_MERGE_REQUEST_IID}`;
 
   try {
-    await fetch(url, {
+    const response = await fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -29,6 +29,12 @@ async function assignMergeRequestLabels({ labels, parameter, environment, config
       },
       body: JSON.stringify({ [config.assignMethod === 'APPEND' ? 'add_labels' : 'labels']: labels.join(',') }),
     });
+
+    if (!response.ok) {
+      throw new Error(`GitLab API responded with bad status code ${response.status}.`, {
+        cause: await response.json(),
+      });
+    }
   } catch (error) {
     throw new Error('Could not assign merge request labels.', { cause: error });
   }
