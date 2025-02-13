@@ -36,30 +36,42 @@ specific merge request.
 Assigns labels based on the commit messages of the made changes.
 Compares the [git log](https://git-scm.com/docs/git-log) between the source and target branch of the specific merge request.
 
-## Installation
+## Usage
 
-Just set up a new job in your `.gitlab-ci.yml` and use the predefined docker image.
-You need to provide a project access token and a relative path to your json configuration file.
-After that you can just call the `gitlab-mr-labeler` CLI and pass the access token and relative path as command-line arguments.
+### Getting started
 
-```yaml
-# .gitlab-ci.yml
+In order to use **gitlab-mr-labeler** you must follow these steps:
 
-gitlab_mr_labeler:
-  image: docker.io/marhali/gitlab-mr-labeler:latest
-  script: gitlab-mr-labeler $MY_PROJECT_ACCESS_TOKEN .github/gitlab-mr-labeler.config.json
-```
+1. Create a [Project Access Token](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html) in GitLab
+2. Add a dedicated JSON configuration file
+3. Configure a [CI](https://docs.gitlab.com/ee/ci/) job that runs on every merge request
 
-## Configuration
+You need ~ 7 minutes to get your initial setup up and running 🚀.
 
-In order to configure which labels should you need to provide a json configuration file.
+### Create a Project Access Token in GitLab
+
+This tool needs a PAT in order to be able to assign labels on merge requests. Just follow the steps as described in the GitLab documentation.
+See [Create a project access token](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token).
+
+Make sure to set the following variables:
+- **Select a role**: `REPORTER` (any other role should be sufficient as well)
+- **Select scopes**: `api`
+
+Add your newly created token as an CI/CD variable. See [Define a CI/CD variable in the UI](https://docs.gitlab.com/ee/ci/variables/#for-a-project).
+
+### Add a dedicated JSON configuration file
+
+In order to configure which labels should be applied you need to provide a json configuration file.
+You can place the configuration file anywhere in your project repository. This file will be referenced when the **gitlab-mr-labeler** CLI is called.
+
+You must define the following properties. If you want to disable any label matcher just set the equivalent property to an empty object (`{}`).
 
 - **assignMethod**: Can be either `APPEND` or `OVERRIDE`
-- **gitLogMessages**: Object of label keys and a array value of regex strings
-- **gitDiffPaths**: Object of label keys and a array value of regex strings
+- **gitLogMessages**: Object of label keys and an array value of matchable regex strings
+- **gitDiffPaths**: Object of label keys and an array value of matchable regex strings
 
 ```json5
-// gitlab-mr-labeler.config.json
+// .gitlab/gitlab-mr-labeler.config.json
 
 {
   "assignMethod": "APPEND",
@@ -71,3 +83,38 @@ In order to configure which labels should you need to provide a json configurati
   }
 }
 ```
+
+### Configure a CI job that runs on every merge request
+
+To automatically determine and assign the appropriate labels you need to define a merge request pipeline job that executes the **gitlab-mr-labeler** CLI
+with your created project access token and the relative path to your json configuration file.
+
+```yaml
+# .gitlab-ci.yml
+
+stages:
+  - prepare
+
+gitlab_mr_labeler:
+  stage: prepare
+  image: docker.io/marhali/gitlab-mr-labeler:latest
+  script: gitlab-mr-labeler $MY_PROCESS_ACCESS_TOKEN .gitlab/gitlab-mr-labeler.config.json
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+```
+
+---
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+
+## Contact
+
+Marcel Haßlinger - [@marhali_de](https://twitter.com/marhali_de) - [Portfolio Website](https://marhali.de)
+
+Project Link: [https://github.com/marhali/gitlab-mr-labeler](https://github.com/marhali/gitlab-mr-labeler)
+
+## Donation
+
+If this tool helps you to reduce development time, you can give me a [cup of coffee](https://paypal.me/marhalide) :)
