@@ -13,7 +13,7 @@ export default defineConfig({
       fileName: 'gitlab-mr-labeler',
     },
     rollupOptions: {
-      external: ['node:child_process', 'node:path', 'node:util'],
+      external: ['node:child_process', 'node:path', 'node:fs/promises', 'node:util'],
     },
   },
   test: {

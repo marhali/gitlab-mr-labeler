@@ -1,5 +1,6 @@
-import { Environment } from '@/domain/environment.ts';
 import path from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { Environment } from '@/domain/environment.ts';
 import { ProcessParameter } from '@/domain/process-parameter.ts';
 
 type LoadConfigOptions = {
@@ -16,9 +17,8 @@ async function loadConfig({ parameter, environment }: LoadConfigOptions): Promis
   const absolutePath = path.join(environment.CI_PROJECT_DIR, parameter.CONFIG_PATH);
 
   try {
-    return await import(absolutePath, {
-      with: { type: 'json' },
-    });
+    // Per JSON RFC we can assert that the file is encoded using utf8 as default
+    return JSON.parse(await readFile(absolutePath, 'utf8'));
   } catch (error) {
     throw new Error(`Could not load json configuration file from relative path "${parameter.CONFIG_PATH}".`, {
       cause: error,
