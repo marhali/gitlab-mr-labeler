@@ -1,0 +1,21 @@
+{
+  "assignMethod": "APPEND",
+  "gitLogMessages": {
+    "feat": ["^(?i)feat"],
+    "fix": ["^(?i)fix"],
+    "perf": ["^(?i)perf"],
+    "build": ["^(?i)build"],
+    "ci": ["^(?i)ci"],
+    "revert": ["^(?i)revert"],
+    "docs": ["^(?i)docs"],
+    "style": ["^(?i)style"],
+    "refactor": ["^(?i)refactor"],
+    "test": ["^(?i)test"],
+    "chore": ["^(?i)chore"],
+
+    "patch": ["^(?i)(feat|fix|perf|build|ci|revert|docs|style|refactor|test|chore)"],
+    "minor": ["^(?i)feat"],
+    "major": ["^((\\w|\\(|\\))+!|(?i)BREAKING CHANGE)"]
+  },
+  "gitDiffPaths": {}
+}

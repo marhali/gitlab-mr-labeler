@@ -84,6 +84,8 @@ You must define the following properties. If you want to disable any label match
 }
 ```
 
+Check out the predefined [examples](examples) to find a good starting point to label your merge requests 🔥.
+
 ### Configure a CI job that runs on every merge request
 
 To automatically determine and assign the appropriate labels you need to define a merge request pipeline job that executes the **gitlab-mr-labeler** CLI

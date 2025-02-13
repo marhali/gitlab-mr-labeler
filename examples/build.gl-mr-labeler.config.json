@@ -1,0 +1,7 @@
+{
+  "assignMethod": "APPEND",
+  "gitLogMessages": {},
+  "gitDiffPaths": {
+    "deps": ["(package(-lock)?\\.json|pnpm-lock\\.yaml|libs\\.versions\\.toml|pom\\.xml|gradle(?:-wrapper)?\\.properties|build\\.gradle(?:\\.kts)?|settings\\.gradle(?:\\.kts)|(\\w)+.config.(\\w)+)$"]
+  }
+}

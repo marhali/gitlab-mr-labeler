@@ -1,0 +1,7 @@
+{
+  "assignMethod": "APPEND",
+  "gitLogMessages": {},
+  "gitDiffPaths": {
+    "deps": ["(.gitlab-ci.yml$|^.gitlab)"]
+  }
+}
