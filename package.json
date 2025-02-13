@@ -1,6 +1,6 @@
 {
   "name": "gitlab-mr-labeler",
-  "description": "GitLab CI pipeline template to automatically label merge requests.",
+  "description": "Automation of label assignment for GitLab merge requests.",
   "author": "Marcel Haßlinger <contact@marhali.de>",
   "license": "MIT",
   "private": true,
