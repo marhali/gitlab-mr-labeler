@@ -23,7 +23,7 @@ describe('assignMergeRequestLabels()', () => {
     await assignMergeRequestLabels({ ...options, config: { assignMethod: 'APPEND' } });
 
     expect(fetchMock).toHaveBeenLastCalledWith(
-      `${options.environment.CI_API_V4_URL}/projects/${options.environment.CI_PROJECT_ID}/${options.environment.CI_MERGE_REQUEST_IID}`,
+      `${options.environment.CI_API_V4_URL}/projects/${options.environment.CI_PROJECT_ID}/merge_requests/${options.environment.CI_MERGE_REQUEST_IID}`,
       {
         method: 'PUT',
         headers: {
@@ -41,7 +41,7 @@ describe('assignMergeRequestLabels()', () => {
     await assignMergeRequestLabels({ ...options, config: { assignMethod: 'OVERRIDE' } });
 
     expect(fetchMock).toHaveBeenLastCalledWith(
-      `${options.environment.CI_API_V4_URL}/projects/${options.environment.CI_PROJECT_ID}/${options.environment.CI_MERGE_REQUEST_IID}`,
+      `${options.environment.CI_API_V4_URL}/projects/${options.environment.CI_PROJECT_ID}/merge_requests/${options.environment.CI_MERGE_REQUEST_IID}`,
       {
         method: 'PUT',
         headers: {

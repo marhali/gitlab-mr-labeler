@@ -18,7 +18,7 @@ type AssignMergeRequestLabelsOptions = {
  * @see https://docs.gitlab.com/ee/api/merge_requests.html#update-mr
  */
 async function assignMergeRequestLabels({ labels, parameter, environment, config }: AssignMergeRequestLabelsOptions) {
-  const url = `${environment.CI_API_V4_URL}/projects/${environment.CI_PROJECT_ID}/${environment.CI_MERGE_REQUEST_IID}`;
+  const url = `${environment.CI_API_V4_URL}/projects/${environment.CI_PROJECT_ID}/merge_requests/${environment.CI_MERGE_REQUEST_IID}`;
 
   try {
     const response = await fetch(url, {
