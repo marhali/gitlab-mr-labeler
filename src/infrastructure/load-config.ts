@@ -17,7 +17,7 @@ async function loadConfig({ parameter, environment }: LoadConfigOptions): Promis
 
   try {
     return await import(absolutePath, {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     });
   } catch (error) {
     throw new Error(`Could not load json configuration file from relative path "${parameter.CONFIG_PATH}".`, {
