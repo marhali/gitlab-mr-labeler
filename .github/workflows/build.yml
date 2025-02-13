@@ -68,9 +68,15 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: pnpm test --coverage
+        run: pnpm test --coverage --reporter=junit --outputFile=test-report.junit.xml
 
-      - name: Upload report to Codecov
+      - name: Upload test report to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
