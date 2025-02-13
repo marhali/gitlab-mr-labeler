@@ -5,7 +5,6 @@
 #   - lint
 #   - test
 #   - build
-#   - inspect
 
 name: Build
 
@@ -67,7 +66,12 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm test --coverage
+
+      - name: Upload report to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   # Build artifact assets
   build:
@@ -93,40 +97,3 @@ jobs:
 
       - name: Run build
         run: pnpm build
-
-  # Inspect code and upload report using Qodana
-  inspect:
-    name: Inspect
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: package.json
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run Qodana
-        uses: JetBrains/qodana-action@v2024.3
-        with:
-          pr-mode: false
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_12547041 }}
-          QODANA_ENDPOINT: 'https://qodana.cloud'
