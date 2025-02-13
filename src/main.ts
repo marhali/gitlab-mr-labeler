@@ -8,7 +8,7 @@ import convertTextToMatchedLabels from '@/domain/convert-text-to-matched-labels.
 import queryGitDiffPaths from '@/infrastructure/query-git-diff-paths.ts';
 import assignMergeRequestLabels from '@/infrastructure/assign-merge-request-labels.ts';
 
-const spacer = '______________________________________________________________________';
+const spacer = '_________________________________________________________________________________';
 
 async function main() {
   const parameter = readProcessParameter();
@@ -31,7 +31,8 @@ async function main() {
     );
 
     const labelsByGitLogMessages = convertTextToMatchedLabels(gitLogMessages, config.gitLogMessages);
-    console.info('Matched labels based on git log messages', labelsByGitLogMessages);
+    console.info('Matched labels based on git log messages:');
+    console.info(labelsByGitLogMessages);
 
     for (const labelByGitLogMessage of labelsByGitLogMessages) {
       labelsToAssign.add(labelByGitLogMessage);
@@ -44,7 +45,8 @@ async function main() {
     const gitDiffPaths = await queryGitDiffPaths(environment.CI_MERGE_REQUEST_DIFF_BASE_SHA, environment.CI_COMMIT_SHA);
 
     const labelsByGitDiffPaths = convertTextToMatchedLabels(gitDiffPaths, config.gitDiffPaths);
-    console.info('Matched labels based on git diff paths', labelsByGitDiffPaths);
+    console.info('Matched labels based on git diff paths:');
+    console.info(labelsByGitDiffPaths);
 
     for (const labelByGitDiffPath of labelsByGitDiffPaths) {
       labelsToAssign.add(labelByGitDiffPath);
@@ -57,7 +59,8 @@ async function main() {
 
   if (labelsToAssign.size > 0 || config.assignMethod === 'OVERRIDE') {
     const labelsToAssignArray = [...labelsToAssign];
-    console.info('Sending API request to assign labels', labelsToAssignArray);
+    console.info('Sending API request to assign the following labels:');
+    console.info(labelsToAssignArray);
     await assignMergeRequestLabels({ parameter, environment, config, labels: labelsToAssignArray });
   } else {
     console.warn('Skip API request as no labels have been matched');

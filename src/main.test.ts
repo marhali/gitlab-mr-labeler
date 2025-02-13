@@ -26,7 +26,7 @@ vi.mock('@/infrastructure/assign-merge-request-labels.ts');
 describe('main()', () => {
   const consoleInfoSpy = vi.spyOn(console, 'info');
   const consoleWarnSpy = vi.spyOn(console, 'warn');
-  const spacer = '______________________________________________________________________';
+  const spacer = '_________________________________________________________________________________';
   const parameter: ProcessParameter = {
     ACCESS_TOKEN: 'myPrivateAccessToken',
     CONFIG_PATH: 'myConfigPath',
@@ -78,16 +78,18 @@ describe('main()', () => {
       environment.CI_COMMIT_SHA,
     );
     expect(convertTextToMatchedLabels).toHaveBeenNthCalledWith(1, 'myGitLogMessages', config.gitLogMessages);
-    expect(consoleInfoSpy).toHaveBeenNthCalledWith(7, 'Matched labels based on git log messages', []);
+    expect(consoleInfoSpy).toHaveBeenNthCalledWith(7, 'Matched labels based on git log messages:');
+    expect(consoleInfoSpy).toHaveBeenNthCalledWith(8, []);
 
     expect(queryGitDiffPaths).toHaveBeenLastCalledWith(
       environment.CI_MERGE_REQUEST_DIFF_BASE_SHA,
       environment.CI_COMMIT_SHA,
     );
     expect(convertTextToMatchedLabels).toHaveBeenNthCalledWith(2, 'myGitDiffPaths', config.gitDiffPaths);
-    expect(consoleInfoSpy).toHaveBeenNthCalledWith(8, 'Matched labels based on git diff paths', []);
+    expect(consoleInfoSpy).toHaveBeenNthCalledWith(9, 'Matched labels based on git diff paths:');
+    expect(consoleInfoSpy).toHaveBeenNthCalledWith(10, []);
 
-    expect(consoleInfoSpy).toHaveBeenNthCalledWith(9, spacer);
+    expect(consoleInfoSpy).toHaveBeenNthCalledWith(11, spacer);
     expect(consoleWarnSpy).toHaveBeenLastCalledWith('Skip API request as no labels have been matched');
     expect(assignMergeRequestLabels).not.toHaveBeenCalled();
   });
