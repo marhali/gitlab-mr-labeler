@@ -4,7 +4,7 @@
 [![Github Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/marhali/gitlab-mr-labeler/build.yml?style=for-the-badge)](https://github.com/marhali/gitlab-mr-labeler/actions)
 [![Docker Stars](https://img.shields.io/docker/stars/marhali/gitlab-mr-labeler?style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler)
 [![Docker Pulls](https://img.shields.io/docker/pulls/marhali/gitlab-mr-labeler?style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler)
-[![Docker Image Version](https://img.shields.io/docker/v/marhali/gitlab-mr-labeler?sort=semver&style=for-the-badge)](https://hub.docker.com/r/marhali/gitlab-mr-labeler/tags)
+[![Docker Image Version](https://img.shields.io/docker/v/marhali/gitlab-mr-labeler?sort=semver&style=for-the-badge&label=Image%20Version)](https://hub.docker.com/r/marhali/gitlab-mr-labeler/tags)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/marhalide)
 
 Solves the problem of missing automation of labeling
