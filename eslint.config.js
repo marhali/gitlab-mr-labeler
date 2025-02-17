@@ -7,7 +7,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default typescriptEslint.config(
   {
-    ignores: ['dist'],
+    ignores: ['dist', 'coverage'],
   },
   eslintJs.configs.recommended,
   typescriptEslint.configs.recommendedTypeChecked,
