@@ -16,7 +16,7 @@ automatically assigned using various configuration options.
 ## Features
 
 - Dedicated [JSON](https://de.wikipedia.org/wiki/JSON) configuration file to configure all your labels
-- Supports regular expressions ([RegExp](https://regex101.com/)) to match the suitable labels
+- Supports regular expressions ([RegExp with JS Flavor](https://regex101.com/?flavor=javascript)) to match the suitable labels
 - Label assignment method can be either `APPEND` or `OVERRIDE`
 - Only uses the official [GitLab API](https://docs.gitlab.com/ee/api/merge_requests.html#update-mr)
 - Works efficiently and saves resources (fast & lightweight)
@@ -71,16 +71,19 @@ You must define the following properties. If you want to disable any label match
 - **gitLogMessages**: Object of label keys and an array value of matchable regex strings
 - **gitDiffPaths**: Object of label keys and an array value of matchable regex strings
 
+Regular expressions must be defined using the [JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
+The format must therefore correspond to the following pattern: `/PATTERN/OPTIONAL_FLAGS` (regular expression literal).
+
 ```json5
 // .gitlab/gitlab-mr-labeler.config.json
 
 {
   "assignMethod": "APPEND",
   "gitLogMessages": {
-    "feature": ["^feat"]
+    "feature": ["/^feat/i"]
   },
   "gitDiffPaths": {
-    "dependencies": ["package.json$"]
+    "dependencies": ["/package\.json$/"]
   }
 }
 ```

@@ -12,15 +12,15 @@ describe('convertTextToMatchedLabels()', () => {
   it('should return multiple matches of same label only once (set logic)', () => {
     expect(
       convertTextToMatchedLabels(join('alpha', 'alphaMore'), {
-        myLabel: ['^alpha'],
+        myLabel: ['/^alpha/'],
       }),
     ).toStrictEqual(['myLabel']);
   });
   it('should return multiple matches of different labels', () => {
     expect(
       convertTextToMatchedLabels(join('prefixText', 'textSuffix'), {
-        firstLabel: ['^prefix'],
-        secondLabel: ['Suffix$'],
+        firstLabel: ['/^prefix/'],
+        secondLabel: ['/Suffix$/'],
       }),
     ).toStrictEqual(['firstLabel', 'secondLabel']);
   });

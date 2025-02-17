@@ -1,21 +1,20 @@
 {
   "assignMethod": "APPEND",
   "gitLogMessages": {
-    "feat": ["^(?i)feat"],
-    "fix": ["^(?i)fix"],
-    "perf": ["^(?i)perf"],
-    "build": ["^(?i)build"],
-    "ci": ["^(?i)ci"],
-    "revert": ["^(?i)revert"],
-    "docs": ["^(?i)docs"],
-    "style": ["^(?i)style"],
-    "refactor": ["^(?i)refactor"],
-    "test": ["^(?i)test"],
-    "chore": ["^(?i)chore"],
-
-    "patch": ["^(?i)(feat|fix|perf|build|ci|revert|docs|style|refactor|test|chore)"],
-    "minor": ["^(?i)feat"],
-    "major": ["^((\\w|\\(|\\))+!|(?i)BREAKING CHANGE)"]
+    "feat": ["/^feat/i"],
+    "fix": ["/^fix/i"],
+    "perf": ["/^perf/i"],
+    "build": ["/^build/i"],
+    "ci": ["/^ci/i"],
+    "revert": ["/^revert/i"],
+    "docs": ["/^docs/i"],
+    "style": ["/^style/i"],
+    "refactor": ["/^refactor/i"],
+    "test": ["/^test/i"],
+    "chore": ["/^chore/i"],
+    "patch": ["/^(feat|fix|perf|build|ci|revert|docs|style|refactor|test|chore)/i"],
+    "minor": ["/^feat/i"],
+    "major": ["/^(\\w+(\\(\\w*\\))?!|BREAKING CHANGE)/i"]
   },
   "gitDiffPaths": {}
 }
