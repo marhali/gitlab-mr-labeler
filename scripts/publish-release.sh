@@ -31,9 +31,9 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 echo "Build and push docker image..."
 docker buildx build --sbom=true --provenance=true --metadata-file "metadata.json" -t "$PRIMARY_TAG" -t "$SECONDARY_TAG" --push .
 
-cat metadata.json
-URI=$(jq -r 'repoDigests[0]' metadata.json)
-echo "| Build URI:     $URI"
+DIGEST=$(jq -r '.containerimage.digest' metadata.json)
+URI="docker.io/$REPOSITORY@$DIGEST"
+echo "| URI:           $URI"
 
 echo "Sign docker image with cosign..."
 cosign sign --yes --key env://COSIGN_KEY $URI
