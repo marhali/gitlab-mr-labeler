@@ -21,7 +21,7 @@ else
   SECONDARY_TAG="$REPOSITORY:$BRANCH"
 fi
 
-URI="docker.io/$REPOSITORY:$PRIMARY_TAG"
+URI="docker.io/$PRIMARY_TAG"
 
 echo "| URI:           $URI"
 echo "| Primary Tag:   $PRIMARY_TAG"
