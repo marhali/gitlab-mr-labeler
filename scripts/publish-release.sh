@@ -31,7 +31,7 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 echo "Build and push docker image..."
 docker buildx build --sbom=true --provenance=true --metadata-file "metadata.json" -t "$PRIMARY_TAG" -t "$SECONDARY_TAG" --push .
 
-DIGEST=$(jq -r '.containerimage.digest' metadata.json)
+DIGEST=$(jq -r '."containerimage.digest"' metadata.json)
 URI="docker.io/$REPOSITORY@$DIGEST"
 echo "| URI:           $URI"
 
