@@ -1,5 +1,5 @@
 # Base on leightweight node alpine image
-FROM node:22.13.1-alpine
+FROM node:22.14.0-alpine
 
 # Provide git cli as interface to project repository
 RUN apk add --no-cache git
