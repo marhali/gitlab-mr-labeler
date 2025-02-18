@@ -13,6 +13,7 @@ dist-ssr
 coverage
 test-report.junit.xml
 *.local
+.certs/cosign.key
 
 # Editor directories and files
 .vscode/*
