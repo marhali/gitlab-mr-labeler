@@ -21,9 +21,6 @@ else
   SECONDARY_TAG="$REPOSITORY:$BRANCH"
 fi
 
-URI="docker.io/$PRIMARY_TAG"
-
-echo "| URI:           $URI"
 echo "| Primary Tag:   $PRIMARY_TAG"
 echo "| Secondary Tag: $SECONDARY_TAG"
 echo ""
@@ -32,10 +29,13 @@ echo "Login to docker registry..."
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 echo "Build and push docker image..."
-docker buildx build --sbom=true --provenance=true -t "$PRIMARY_TAG" -t "$SECONDARY_TAG" --push .
+docker buildx build --sbom=true --provenance=true --metadata-file "metadata.json" -t "$PRIMARY_TAG" -t "$SECONDARY_TAG" --push .
+
+URI=$(jq -r 'repoDigests[0]' metadata.json)
+echo "| Build URI:     $URI"
 
 echo "Sign docker image with cosign..."
-cosign sign --key env://COSIGN_KEY $URI
+cosign sign --yes --key env://COSIGN_KEY $URI
 
 echo "Verify docker image..."
 docker buildx imagetools inspect $URI
