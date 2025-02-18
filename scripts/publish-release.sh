@@ -11,8 +11,6 @@ echo "| P U B L I S H    R E L E A S E"
 echo "| Version:       $VERSION"
 echo "| Branch:        $BRANCH"
 echo "| Repository:    $REPOSITORY"
-echo "| URI:           $URI"
-echo "|"
 
 if test $BRANCH = "main"
 then
