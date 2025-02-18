@@ -55,7 +55,7 @@ This tool needs a PAT in order to be able to assign labels on merge requests. Ju
 See [Create a project access token](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#create-a-project-access-token).
 
 Make sure to set the following variables:
-- **Select a role**: `REPORTER` (any other role should be sufficient as well)
+- **Select a role**: `Developer`
 - **Select scopes**: `api`
 
 Add your newly created token as an CI/CD variable. See [Define a CI/CD variable in the UI](https://docs.gitlab.com/ee/ci/variables/#for-a-project).
