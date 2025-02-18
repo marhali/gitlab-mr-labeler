@@ -2,6 +2,6 @@
   "assignMethod": "APPEND",
   "gitLogMessages": {},
   "gitDiffPaths": {
-    "ci": ["/(\\.gitlab-ci\\.yml$|^\\.gitlab\\/)/"]
+    "ci": ["/(\\.gitlab-ci\\.yml$|^\\.gitlab\\/)/m"]
   }
 }

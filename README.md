@@ -73,6 +73,7 @@ You must define the following properties. If you want to disable any label match
 
 Regular expressions must be defined using the [JavaScript flavor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions).
 The format must therefore correspond to the following pattern: `/PATTERN/OPTIONAL_FLAGS` (regular expression literal).
+For most use cases you should always supply the `m` flag to enable multi-line matching.
 
 ```json5
 // .gitlab/gitlab-mr-labeler.config.json
@@ -80,10 +81,10 @@ The format must therefore correspond to the following pattern: `/PATTERN/OPTIONA
 {
   "assignMethod": "APPEND",
   "gitLogMessages": {
-    "feature": ["/^feat/i"]
+    "feature": ["/^feat/mi"]
   },
   "gitDiffPaths": {
-    "dependencies": ["/package\.json$/"]
+    "dependencies": ["/package\.json$/m"]
   }
 }
 ```
