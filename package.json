@@ -17,7 +17,7 @@
   },
   "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d",
   "devDependencies": {
-    "@eslint/js": "9.20.0",
+    "@eslint/js": "9.21.0",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "7.0.3",
     "@types/node": "22.13.4",
